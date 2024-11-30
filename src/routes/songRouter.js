@@ -1,9 +1,11 @@
 import { Router } from "express";
-import songController from "../controller/songController.js";
+import songApiController from "../controller/song/songApiController.js";
+import multerMiddleware from "../middlewares/multerMiddleware.js";
 
 const router = Router();
 
-router.get("/", songController.getAll);
-router.get("/artist/:artistId", songController.getAllByArtistId);
+router.get("/", songApiController.getAllSongs);
+router.get("/artist/:artistId", songApiController.getSongsByArtistId);
+router.post("/upload", multerMiddleware, songApiController.createSong);
 
 export default router;

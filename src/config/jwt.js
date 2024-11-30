@@ -2,12 +2,10 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
 dotenv.config();
+const SECRET = process.env.JWT_SECRET;
 
-const secret = dotenv.env.JWT_SECRET;
 function sign(data, expiresIn = "1h") {
-    const token = jwt.sign(data, secret, {
-        expiresIn,
-    });
+    const token = jwt.sign(data, SECRET, { expiresIn });
     return token;
 }
 
@@ -21,7 +19,18 @@ function verify(token) {
     }
 }
 
+const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+
+function generateVerificationToken(userId){
+    const payload = { id: userId };
+    const token = jwt.sign(payload, JWT_SECRET, {
+        expiresIn: "1h", // El token expira en 1 día
+    });
+    return token;
+};
+
 export default {
     sign,
     verify,
+    generateVerificationToken
 };

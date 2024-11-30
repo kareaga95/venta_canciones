@@ -62,6 +62,10 @@ const Song = sequelize.define(
             type: DataTypes.STRING(50),
             allowNull: true,
         },
+        sales_amount: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            defaultValue: 0,
+        },
         created_date: {
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,

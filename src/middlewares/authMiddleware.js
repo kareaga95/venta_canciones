@@ -1,0 +1,72 @@
+import jwt from "../config/jwt.js";
+
+async function isAuthenticated(req,res,next){
+    const authorization = req.headers.authorization;
+    if(!authorization){
+        return res.status(401).json({error:"jwt token needed"});
+    }
+    const token = authorization.replace("Bearer ","");
+    const verified = jwt.verify(token);
+    if(verified.error){
+        return res.status(401).json({error:"jwt token not correct"});
+    }
+    next();
+}
+async function isAdmin(req,res,next){
+    const authorization = req.headers.authorization;
+    if(!authorization){
+        return res.status(401).json({error:"jwt token needed"});
+    }
+    const token = authorization.replace("Bearer ","");
+    const verified = jwt.verify(token);
+    if(verified.error){
+        return res.status(401).json({error:"jwt token not correct"});
+    }
+    if(!verified.role || verified.role !== "admin"){
+        return res.status(403).json({error:"not allowed"});
+    }
+    next();
+}
+
+async function isAdminOrSelfUser(req,res,next){
+    const authorization = req.headers.authorization;
+    if(!authorization){
+        return res.status(401).json({error:"jwt token needed"});
+    }
+    const token = authorization.replace("Bearer ","");
+    const verified = jwt.verify(token);
+    if(verified.error){
+        return res.status(401).json({error:"jwt token not correct"});
+    }
+    const id = parseInt(req.params.id);
+    if((!verified.role || verified.role !== "admin")&& id!=verified.user_id){
+        return res.status(403).json({error:"not allowed"});
+    }
+
+    next();
+}
+
+// async function isArtist(req, res, next) {
+//     const authorization = req.headers.authorization;
+//     if (!authorization) {
+//         return res.status(401).json({ error: "jwt token needed" });
+//     }
+
+//     const token = authorization.replace("Bearer ", "");
+//     try {
+//         const verified = jwt.verify(token, process.env.JWT_SECRET); // Asegúrate de usar el secreto correcto
+        
+//         // Verificar si el usuario es un artista
+//         const isArtist = await artistController.getArtistByUserId(verified.id) !== null;
+
+//         if (!isArtist) {
+//             return res.status(403).json({ error: "not allowed" });
+//         }
+
+//         next(); // Llamar al siguiente middleware o controlador
+//     } catch (error) {
+//         console.error("JWT verification error:", error);
+//         return res.status(401).json({ error: "jwt token not correct" });
+//     }
+// }
+export { isAuthenticated, isAdmin, isAdminOrSelfUser };

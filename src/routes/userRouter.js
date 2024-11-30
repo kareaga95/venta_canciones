@@ -1,19 +1,22 @@
 import { Router } from "express";
-import userController from "../controller/userController.js";
+import userApiController from "../controller/user/userApiController.js";
+import { isAuthenticated, isAdmin } from "../middlewares/authMiddleware.js";
+
 const router = Router();
-// import { isAuthenticated, isAdmin } from "../middlewares/authMiddleware.js";
-// router.get("/", isAdmin, userController.getAll);
 
-router.get("/", userController.getAll);
+// router.get("/", isAdmin, userApiController.getAllUsers);
+router.get("/", userApiController.getAllUsers);
 
-router.get("/:id", userController.getById);
+router.post("/new", userApiController.createUser);
 
-router.post("/new", userController.create);
+router.post("/:id/update", userApiController.updateUser);
 
-router.post("/:id/update", userController.update);
+router.post("/:id/desactivate", userApiController.desactivateUser);
 
-router.get("/:id/deactivate", userController.desactivate);
+router.post("/:id/activate", userApiController.activateUser);
 
-router.get("/:id/activate", userController.activate);
+router.get("/:id", userApiController.getUserById);
+
+router.get("/email/:email", userApiController.getUserByEmail);
 
 export default router;
