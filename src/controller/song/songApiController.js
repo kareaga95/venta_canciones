@@ -44,8 +44,6 @@ async function getSongById(req, res) {
 async function createSong(req, res) {
     const userId = req.userId;
     const artist_id = await artistController.getArtistByUserId(userId).then((artist) => artist.id);
-    const { title, price, genre} = req.body;
-
     req.body.artist_id = artist_id;
     try {
         const newSong = await songController.createSong(req.body, req.files);
@@ -70,31 +68,9 @@ async function updateSong(req, res) {
         res.status(500).json({ error: "Error al actualizar la canción." });
     }
 }
-//CREAR MIDDLEWARE PARA VERIFICAR SI LA CANCION PERTENECE AL USUARIO
-//DEBERIA COMPROBAR SI LA CANCION PERTENECE AL USUARIO? EN PRINCIPIO UN USUARIO SOLO VA A PODER VER SUS CANCIONES
-// async function updateSong(req, res) {
-//     const userId = req.userId;
-//     try {
-//         const songBelongToUser = await getSongsByArtistId(userId, req.params.id);
-//         if(songBelongToUser){
-//             const {title, price, genre} = req.body;
-//             const updatedSong = await songController.updateSong(req.params.id, title, price, genre);
-//             if (!updatedSong) {
-//                 res.status(404).json({ error: "Canción no encontrada." });
-//             } else {
-//                 res.status(200).json(updatedSong.toJSON());
-//             }
-//         }else{
-//             res.status(403).json({ error: "No tienes permisos para actualizar esta canción." });
-//         }
-
-//     } catch (error) {
-//         console.error("Error en update:", error);
-//         res.status(500).json({ error: "Error al actualizar la canción." });
-//     }
-// }
 
 async function deleteSong(req, res) {
+    const userId = req.userId;
     try {
         const deletedSong = await songController.deleteSong(req.params.id);
 

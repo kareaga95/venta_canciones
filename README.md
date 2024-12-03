@@ -14,7 +14,7 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
 ## 🌟 Características
 
 -   Registro y autenticación de usuarios.
--   Añadir, editar y eliminar ingresos y gastos.
+-   Añadir, editar y eliminar canciones, usuarios, artistas.
 -   Visualización de gráficos financieros.
 -   Resúmenes de ingresos y gastos por periodos de tiempo.
 

@@ -12,5 +12,5 @@ router.use("/users", userRouter);
 router.use("/auth", authRouter);
 router.use("/purchases", purchaseRouter);
 router.use("/artists", artistRouter);
-
+ 
 export default router;

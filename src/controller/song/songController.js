@@ -116,6 +116,7 @@ async function createSong(data, files) {
 }
 
 async function updateSong(id, title, price, genre, sales_amount) {
+    console.log("UPDATE SONNG DATOS: " + title + " " + price + " " + genre);
     const song = await Song.findByPk(id);
     if (!song) {
         throw new Error("Cancion no encontrada");
@@ -124,7 +125,7 @@ async function updateSong(id, title, price, genre, sales_amount) {
     song.price = price;
     song.genre = genre;
     song.sales_amount = sales_amount;
-
+    console.log("UPDATE SONG FINALIZADO");
     return await song.save();
 }
 
@@ -147,6 +148,29 @@ async function deleteSong(id) {
     });
     console.log("UNLINK END");
     return await song.destroy();
+}
+
+async function downloadSong(req, res) {
+    try {
+        const { fileName } = req.params; // Recibe el nombre del archivo desde los parámetros
+        const filePath = path.join(__dirname, "../uploads", fileName); // Construye la ruta completa
+
+        // Verifica si el archivo existe
+        if (!fs.existsSync(filePath)) {
+            return res.status(404).json({ error: "Archivo no encontrado" });
+        }
+
+        // Envía el archivo al cliente para su descarga
+        res.download(filePath, fileName, (err) => {
+            if (err) {
+                console.error("Error al descargar el archivo:", err);
+                res.status(500).json({ error: "Error al procesar la descarga" });
+            }
+        });
+    } catch (error) {
+        console.error("Error en downloadSong:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
 }
 
 export const functions = { getAllSongs, getSongsByArtistId, createSong, getSongById, updateSong, deleteSong };

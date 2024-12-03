@@ -1,5 +1,6 @@
 import jwt from "../config/jwt.js";
 import artistController from "../controller/artist/artistController.js";
+import songController from "../controller/song/songController.js";
 async function isAuthenticated(req,res,next){
     const authorization = req.headers.authorization;
     if(!authorization){
@@ -21,18 +22,25 @@ async function isAuthenticated(req,res,next){
     next();
 }
 
-// async function isArtist(req,res,next){
-//     const authorization = req.headers.authorization;
-//     if(!authorization){
-//         return res.status(401).json({error:"jwt token needed"});
-//     }
+async function songBelongsToUser(req,res,next){
+    const authorization = req.headers.authorization;
+    if(!authorization){
+        return res.status(401).json({error:"jwt token needed"});
+    }
+    const token = authorization.replace("Bearer ","");
+    const verified = jwt.verify(token);
+    req.userId = verified.id;
+    const artistId = await artistController.getArtistByUserId(verified.id).then((artist) => artist.id);
+    const songId = await songController.getSongById(req.params.id);
+    if(songId.artist_id != artistId){
+        return res.status(403).json({error:"No tienes permisos para esta operacion"});
+    }
 
-//     const artisByUserId = await artistController.getArtistByUserId(req.userId);
-//     if(!artisByUserId){
-//         return res.status(403).json({error:"not artist"});
-//     }
-//     next();
-// }
+    if(verified.error){
+        return res.status(401).json({error:"jwt token not correct"});
+    }
+    next();
+}
 
 async function isAdmin(req,res,next){
     const authorization = req.headers.authorization;
@@ -91,4 +99,4 @@ async function isAdminOrSelfUser(req,res,next){
 //         return res.status(401).json({ error: "jwt token not correct" });
 //     }
 // }
-export { isAuthenticated, isAdmin, isAdminOrSelfUser };
+export { isAuthenticated, isAdmin, isAdminOrSelfUser, songBelongsToUser };
