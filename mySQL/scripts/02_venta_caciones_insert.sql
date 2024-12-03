@@ -15,19 +15,19 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ================================================
 INSERT INTO `venta_canciones`.`user` (`username`, `email`, `password`, `rol`, `active`, `created_date`)
 VALUES
-('admin_user', 'admin@example.com', 'hashed_admin_password', 'admin', 1, NOW()), -- Admin
-('john_doe', 'john.doe@example.com', 'hashed_password_john', 'user', 1, NOW()), -- Usuario regular
-('sarah_music', 'sarah.music@example.com', 'hashed_password_sarah', 'user', 1, NOW()), -- Artista
-('fanatic_123', 'fanatic123@example.com', 'hashed_password_fanatic', 'user', 1, NOW()), -- Usuario regular
-('dj_rock', 'dj.rock@example.com', 'hashed_password_dj', 'user', 1, NOW()); -- Artista
+('admin_user', 'admin@example.com', '$2a$10$OkKKy0X0kMV1wTqJGryGReLQxZTy1iZdxS5gAMc8xSU.ivYF3Gy8u', 'admin', 1, NOW()), -- Admin
+('john_doe', 'john.doe@example.com', '$2a$10$OkKKy0X0kMV1wTqJGryGReLQxZTy1iZdxS5gAMc8xSU.ivYF3Gy8u', 'user', 1, NOW()), -- Usuario regular
+('sarah_music', 'sarah.music@example.com', '$2a$10$OkKKy0X0kMV1wTqJGryGReLQxZTy1iZdxS5gAMc8xSU.ivYF3Gy8u', 'user', 1, NOW()), -- Artista
+('fanatic_123', 'fanatic123@example.com', '$2a$10$OkKKy0X0kMV1wTqJGryGReLQxZTy1iZdxS5gAMc8xSU.ivYF3Gy8u', 'user', 1, NOW()), -- Usuario regular
+('dj_rock', 'dj.rock@example.com', '$2a$10$OkKKy0X0kMV1wTqJGryGReLQxZTy1iZdxS5gAMc8xSU.ivYF3Gy8u', 'user', 1, NOW()); -- Artista
 
 -- ================================================
 -- INSERTAR REGISTROS EN LA TABLA `artists`
 -- ================================================
-INSERT INTO `venta_canciones`.`artist` (`name`, `user_id`, `created_date`, `updated_date`)
+INSERT INTO `venta_canciones`.`artist` (`name`, `user_id`, `active`, `created_date`, `updated_date`)
 VALUES
-('Sarah Music', 3, NOW(), NOW()), -- Artista Sarah
-('DJ Rock', 5, NOW(), NOW());    -- Artista DJ Rock
+('Sarah Music', 3, 1, NOW(), NOW()), -- Artista Sarah
+('DJ Rock', 5, 1, NOW(), NOW());    -- Artista DJ Rock
 
 -- ================================================
 -- INSERTAR REGISTROS EN LA TABLA `songs`

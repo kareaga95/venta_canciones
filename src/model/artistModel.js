@@ -41,7 +41,12 @@ const Artist = sequelize.define("artist", {
             const fecha = new Date(rawValue);
             return fecha.toISOString().slice(0, 16);
         },
-    }
+    },
+    active: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: 1,
+    },
 });
 
 User.hasOne(Artist, {

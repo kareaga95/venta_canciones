@@ -1,5 +1,5 @@
 import jwt from "../config/jwt.js";
-
+import artistController from "../controller/artist/artistController.js";
 async function isAuthenticated(req,res,next){
     const authorization = req.headers.authorization;
     if(!authorization){
@@ -7,11 +7,33 @@ async function isAuthenticated(req,res,next){
     }
     const token = authorization.replace("Bearer ","");
     const verified = jwt.verify(token);
+    const isArtist = await artistController.getArtistByUserId(verified.id);
+    if(isArtist){
+        req.artistId = isArtist.id;
+        console.log("Es artista", req.artistId);
+    }
+    req.userId = verified.id;
+    req.rol = verified.rol;
+    
     if(verified.error){
         return res.status(401).json({error:"jwt token not correct"});
     }
     next();
 }
+
+// async function isArtist(req,res,next){
+//     const authorization = req.headers.authorization;
+//     if(!authorization){
+//         return res.status(401).json({error:"jwt token needed"});
+//     }
+
+//     const artisByUserId = await artistController.getArtistByUserId(req.userId);
+//     if(!artisByUserId){
+//         return res.status(403).json({error:"not artist"});
+//     }
+//     next();
+// }
+
 async function isAdmin(req,res,next){
     const authorization = req.headers.authorization;
     if(!authorization){
@@ -22,7 +44,7 @@ async function isAdmin(req,res,next){
     if(verified.error){
         return res.status(401).json({error:"jwt token not correct"});
     }
-    if(!verified.role || verified.role !== "admin"){
+    if(!verified.rol || verified.rol !== "admin"){
         return res.status(403).json({error:"not allowed"});
     }
     next();

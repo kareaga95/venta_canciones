@@ -1,8 +1,7 @@
 import purchaseController from "./purchaseController.js";
 
 async function getAllByUserId(req, res) {
-    //const userId = req.session.userId;
-    const userId = 3;
+    const userId = req.userId;
     try {
         const purchases = await purchaseController.getAllByUserId(userId);
         res.status(200).json(purchases);
@@ -14,9 +13,9 @@ async function getAllByUserId(req, res) {
 
 async function createPurchase(req, res) {
 
-    const userId = req.session.userId;
+    const userId = req.userId;
     const { songId } = req.body;
-
+    console.log("Creando compra para el usuario:", userId, "con canción:", songId);
     try {
         const newPurchase = await purchaseController.createPurchase(userId, songId);
         res.status(201).json(newPurchase);

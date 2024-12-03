@@ -1,6 +1,7 @@
 import Song from "../../model/songModel.js";
 import Artist from "../../model/artistModel.js";
 import { Op } from "sequelize";
+import fs from 'fs';
 
 async function getAllSongs(filters) {
     const { visible, search, genre, artistName } = filters;
@@ -89,9 +90,16 @@ async function getSongsByArtistId(artistId, filters) {
     });
 }
 
+async function getSongById(id) {
+    const song = await Song.findByPk(id);
+    return song;
+
+}
+
 async function createSong(data, files) {
     const coverImage = files["coverImage"]?.[0];
-    const audioFile = files["audioFile"]?.[0];
+    const audioFile = files["audioFile"]?.[0]; 7
+    console.log("DATAAAAAAAA " + data.title)
 
     return await Song.create({
         artist_id: data.artist_id,
@@ -107,6 +115,40 @@ async function createSong(data, files) {
     });
 }
 
-export const functions = { getAllSongs, getSongsByArtistId, createSong };
+async function updateSong(id, title, price, genre, sales_amount) {
+    const song = await Song.findByPk(id);
+    if (!song) {
+        throw new Error("Cancion no encontrada");
+    }
+    song.title = title;
+    song.price = price;
+    song.genre = genre;
+    song.sales_amount = sales_amount;
+
+    return await song.save();
+}
+
+async function deleteSong(id) {
+    const song = await Song.findByPk(id);
+    if (!song) {
+        throw new Error("Cancion no encontrada");
+    }
+
+    const paths = [song.cover_image, song.audio_file_path];
+    paths.forEach(path => {
+        fs.unlink(path, (err) => {
+            if (err) {
+                console.log("ERROR UNLINK");
+                console.error(err);
+                return;
+            }
+            console.log('File deleted successfully');
+        });
+    });
+    console.log("UNLINK END");
+    return await song.destroy();
+}
+
+export const functions = { getAllSongs, getSongsByArtistId, createSong, getSongById, updateSong, deleteSong };
 
 export default functions;

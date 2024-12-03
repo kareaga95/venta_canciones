@@ -32,7 +32,7 @@ const User = sequelize.define("user", {
     active: {
         type: DataTypes.TINYINT,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: 1,
     },
     // emailToken: {
     //     type: DataTypes.STRING, // Token para confirmar el correo

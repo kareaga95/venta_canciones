@@ -54,8 +54,7 @@ async function createUser(req, res) {
 }
 
 async function updateUser(req, res) {
-    try {
-        
+    try {  
         const { username, email, password, rol } = req.body;
         const updatedUser = await userController.updateUser(req.params.id, username, email, password, rol);
         res.status(200).json(updatedUser);

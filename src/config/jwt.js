@@ -11,7 +11,7 @@ function sign(data, expiresIn = "1h") {
 
 function verify(token) {
     try {
-        const response = jwt.verify(token,secret);
+        const response = jwt.verify(token,SECRET);
         return response;
     } catch (error) {
         console.error(error);
@@ -19,11 +19,11 @@ function verify(token) {
     }
 }
 
-const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
+//const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 function generateVerificationToken(userId){
     const payload = { id: userId };
-    const token = jwt.sign(payload, JWT_SECRET, {
+    const token = jwt.sign(payload, SECRET, {
         expiresIn: "1h", // El token expira en 1 día
     });
     return token;

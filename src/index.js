@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import router from "./routes/router.js";
 import session from "express-session";
 import {saveUser} from "./middlewares/sessionMiddleware.js";
+
 dotenv.config();
 
 const app = express();
