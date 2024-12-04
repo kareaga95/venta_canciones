@@ -10,57 +10,67 @@
 
 -   Arreglados los bugs restantes para la aplicacion final
 
-## [0.1.0] - 2024-11-20
+## [0.0.9] - 2024-11-20
 
 ### Añadidos
 
--   Vista del menu de usuarios para el administrador
-
-### Cambios
-
--   Estilos actualizados
--   Mostrar solo los gastos y ingresos del usuario logeado
--   Mostrar solo los gastos y ingresos del filtro de fechas establecido
+-   Mensajes de errores para la gestion de excepciones de los conotrollers.
 
 ---
 
-## [0.0.5] - 2024-11-19
+## [0.0.8] - 2024-11-19
 
 ### Añadidos
 
--   Login y registro de usuarios
+-   Controllers y router de Song.
 
 ---
 
-## [0.0.4] - 2024-11-18
+## [0.0.7] - 2024-11-18
 
 ### Añadidos
 
--   Modelo, controlador y router de usuarios completado.
--   Vistas de creacion y ediccion de usuarios completadas.
+-   Controllers y router de Purchase.
 
 ---
 
-## [0.0.3] - 2024-11-17
+## [0.0.6] - 2024-11-17
 
 ### Añadidos
 
--   Modelo, controlador y router de ingresos completado.
--   Vistas de creacion y ediccion de ingresos completadas.
+-   Controllers y router de Artist.
 
 ---
 
-## [0.0.2] - 2024-11-16
+## [0.0.5] - 2024-11-17
 
 ### Añadidos
 
--   Modelo, controlador y router de gastos completado.
--   Vistas de creacion y ediccion de gastos completadas.
--   Conexion a la base de datos con sequelize
+-   Controllers y router de Login y Register.
+
+-   Verificación por token y middlewares (isAuthenticated, songBelongsToUser, isAdmin, isAdminOrSelfUser).
+
 
 ---
 
-## [0.0.1] - 2024-11-14
+## [0.0.4] - 2024-11-16
+
+### Añadidos
+
+-   Dockerizacion del backend y la base de datos de mysql.
+
+---
+
+## [0.0.3] - 2024-11-16
+
+### Añadidos
+
+-   Conexion a la base de datos con sequelize.
+
+---
+
+
+## [0.0.2] - 2024-11-14
 
 ### Añadidos
 
@@ -72,4 +82,4 @@
 
 ### Añadidos
 
--   Creacion del repositorio y primera version del reedme.
+-   Creacion del repositorio y primera version del readme.

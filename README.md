@@ -15,8 +15,7 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
 
 -   Registro y autenticación de usuarios.
 -   Añadir, editar y eliminar canciones, usuarios, artistas.
--   Visualización de gráficos financieros.
--   Resúmenes de ingresos y gastos por periodos de tiempo.
+-   Compra y venta de canciones.
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -24,13 +23,16 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![Multer](https://img.shields.io/badge/Multer-FF5733?style=for-the-badge&logo=node.js&logoColor=white)
+
+
 
 ## ⚙️ Instalación
 
 1. **Clona el repositorio**:
 
     ```bash
-    git clone https://github.com/YerBrown/proyecto-finanzas-personales
+    git clone https://github.com/kareaga95/venta_canciones
 
     ```
 
@@ -39,15 +41,17 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
     Utilizando el '.env.example' crea el archivo '.env' y añade las variables de entorno
 
     ```plaintext
-     DB_HOST=proyecto-finanzas-db
-     DB_PORT=3308
-     APP_HOST=proyecto-finanzas
-     APP_PORT=3001
-     DB_USER=usuario
-     DB_PASSWORD=12345
-     DB_NAME=Proyecto_Finanzas
-     SESSION_SECRET=yermikjorant
-     DB_DIALECT=mysql
+        DB_HOST=db
+        DB_PORT=3308
+        APP_HOST=Venta_Canciones
+        APP_PORT=3001
+        DB_USER=usuario
+        DB_PASSWORD=12345
+        DB_NAME=venta_canciones
+        SECRET=clave_secreta
+        DB_DIALECT=mysql
+        JWT_SECRET=secretoJWTMikel
+        SESSION_SECRET=secretSessionMikel
     ```
 
 3. **Inicia el contenedor de docker**:
@@ -58,63 +62,81 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
     docker compose up --build
     ```
 
-4. **Disfruta de nuestra app :)**
+4. **Disfruta de la app :)**
 
 ## 🚀 Uso
 
 1. **Inicio de Sesión o Registro**:
-
     - Ingresa con tu usuario y contraseña si ya tienes una cuenta.
     - Si no tienes cuenta, regístrate rápidamente con tus datos personales.
 
-2. **Gestión de Transacciones**:
-    - Accede a la ventana de gastos e ingresos, donde puedes:
-        - Ver todas tus transacciones, editarlas o borrarlas.
-        - Filtrar por mes o año para un análisis más detallado.
-        - Consultar tu balance de ahorro actual.
-    - Añade una nueva transacción pulsando en los botones superiores del navegadir y completa un formulario con:
-        - Cantidad.
-        - Fecha de la transacción.
-        - Categoría.
-        - Título personalizado.
-        - Comentario (opcional).
-3. **Análisis por Categoría:**
-    - Pulsando en los botones centrales de gastos y ingresos, podras visualizar un resumen gráfico del porcentaje de gastos e ingresos distribuidos por categorías específicas.
+2. **Compra de Canciones**:
+    - Accede a la ventana las canciones donde puedes:
+        - Ver todas todas las canciones disponibles de la tienda.
+        - Filtrar titulo, genero, artista, precio.
+    - Añade una nueva compra pulsando en boton "Comprar" de cada canción:
+
+3. **Venta de Canciónes:**
+    - Pulsando en el boton de "Soy artista" rellenaremos el formulario para poder acceder a nuestra cuenta como artista.
+    - Una vez creada la cuenta como artista, podremos subir nuestras canciones rellenando el formulario con los siguientes campos:
+        -Titulo
+        -Genero
+        -Precio
+        -Fecha de estreno
 4. Ventana de Administración (Solo Administradores):
     - Accede a una vista exclusiva para administradores donde podrás:
-    - Visualizar todos los usuarios registrados en la base de datos.
-    - Gestionar la desactivacion y activacion de las cuentas de los usuarios.
+        - Visualizar todos los usuarios (y artistas) registrados en la base de datos.
+        - Gestionar la desactivacion y activacion de las cuentas de los usuarios.
 
 ## 📌 Endpoints
 
-/login
+/auth/login
 
-<img src="public/images/screenshoots/Captura-login.png" alt="Login de PocketLog" width="1000">
+/auth/register
 
-/register
+/songs/
 
-<img src="public/images/screenshoots/Captura-register.png" alt="Registro de PocketLog" width="1000">
+/songs/artist
 
-/transaction
+/songs/:id/download
 
-<img src="public/images/screenshoots/Captura-home.png" alt="Menu de transacciones" width="1000">
-<img src="public/images/screenshoots/Captura resumen.png" alt="Modal resumen ingresos" width="1000">
+/songs/new
 
-/expense/new - /income/new
+/songs/:id/update
 
-<img src="public/images/screenshoots/Captura-crear-ingreso.png" alt="Crear un ingreso" width="1000">
+/songs/:id/delete
 
-/expense/:id/update - /income/:id/update
+/songs/:id
 
-<img src="public/images/screenshoots/Captura-editar-gasto.png" alt="Editar un gasto" width="1000">
 
-/user
+/users/
 
-<img src="public/images/screenshoots/Captura-administrador-usuarios.png" alt="Administrador de usuarios" width="1000">
+/users/new
 
-## 👥 Colaboradores
+/users/:id/update
 
-[![GitHub](https://img.shields.io/badge/GitHub-@kareaga95-blue?style=flat-square&logo=github)](https://github.com/kareaga95)
-[![GitHub](https://img.shields.io/badge/GitHub-@JorgePascualFuentecilla-blue?style=flat-square&logo=github)](https://github.com/JorgePascualFuentecilla)
-[![GitHub](https://img.shields.io/badge/GitHub-@4n7n-blue?style=flat-square&logo=github)](https://github.com/4n7n)
-[![GitHub](https://img.shields.io/badge/GitHub-@YerBrown-blue?style=flat-square&logo=github)](https://github.com/YerBrown)
+/users/status
+
+/users/:id
+
+/users/email/:email
+
+
+/purchases/new
+
+/purchases/user
+
+
+/artists/
+
+/artists/:id
+
+/artists/new
+
+/artists/update
+
+/artists/status
+
+
+
+

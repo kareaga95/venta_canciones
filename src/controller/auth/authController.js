@@ -1,10 +1,11 @@
 import { verifyPassword } from "../../config/bcrypt.js";
 import userController from "../user/userController.js";
 import error from "../../hellpers/errors.js";
+import User from "../../model/userModel.js";
 
 async function register(username, email, password, passwordConfirm) {
-        const existingEmail = await userController.getUserByEmail(email);
-        const existingUsername = await userController.getUserByUsername(username);
+        const existingEmail = await User.findOne({where: {email: email}});
+        const existingUsername = await User.findOne({where: {username: username}});
 
         if (existingEmail) {
             throw new error.EMAIL_ALREADY_EXISTS();

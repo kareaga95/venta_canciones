@@ -87,24 +87,6 @@ async function updateUser(req, res) {
     }
 }
 
-async function desactivateUser(req, res) {
-    try {
-        const desactivateUser = await userController.desactivateUser(req.params.id);
-        res.status(200).json(desactivateUser);
-    } catch (error) {
-        handleError(res, error);
-    }
-}
-
-async function activateUser(req, res) {
-    try {
-        const activatedUser = await userController.activateUser(req.params.id);
-        res.status(200).json(activatedUser);
-    } catch (error) {
-        handleError(res, error);
-    }
-}
-
 
 async function updateUserStatus(req, res) {
     try {
@@ -130,8 +112,6 @@ export const functions = {
     getUserByUsername,
     createUser,
     updateUser,
-    desactivateUser,
-    activateUser,
     updateUserStatus,
 };
 

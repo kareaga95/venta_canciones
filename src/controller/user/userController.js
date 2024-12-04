@@ -67,30 +67,6 @@ async function updateUser(id, username, email, password) {
     return user;
 }
 
-async function desactivateUser(id) {
-    const userToRemove = await userModel.findByPk(id);
-    const isArtist = await artistModel.findAll({ where: { user_id: id } });
-    const artistIds = isArtist.map(artist => artist.id);
-    if (isArtist) {
-        await songModel.update({ visible: 0 }, { where: { artist_id: artistIds } });
-    }
-    userToRemove.active = 0;
-    userToRemove.save();
-    return userToRemove;
-
-}
-
-async function activateUser(id) {
-    const userToRemove = await userModel.findByPk(id);
-    const isArtist = await artistModel.findAll({ where: { user_id: id } });
-    const artistIds = isArtist.map(artist => artist.id);
-    if (isArtist) {
-        await songModel.update({ visible: 1 }, { where: { artist_id: artistIds } });
-    }
-    userToRemove.active = 1;
-    userToRemove.save();
-    return userToRemove;
-}
 
 async function updateUserStatus(id, active) {
     const user = await userModel.findByPk(id);
@@ -125,8 +101,6 @@ export const functions = {
     getUserByUsername,
     createUser,
     updateUser,
-    desactivateUser,
-    activateUser,
     updateUserStatus
 
 };

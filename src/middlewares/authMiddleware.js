@@ -2,7 +2,6 @@ import jwt from "../config/jwt.js";
 import artistController from "../controller/artist/artistController.js";
 import songController from "../controller/song/songController.js";
 async function isAuthenticated(req, res, next) {
-    console.log("ESTÁ ENTRANDO");
     try {
         const authorization = req.headers.authorization;
         if (!authorization) {
