@@ -19,27 +19,25 @@ const Artist = sequelize.define("artist", {
     created_date: {
         type: DataTypes.DATE,
         allowNull: true,
-        // Formatea la fecha para el input de tipo datetime-local
         get() {
-            const rawValue = this.getDataValue("create_time");
+            const rawValue = this.getDataValue("created_date");
             if (!rawValue) return null;
 
-            // Formatea la fecha en "YYYY-MM-DDTHH:MM"
-            const fecha = new Date(rawValue);
-            return fecha.toISOString().slice(0, 16);
+            const date = new Date(rawValue);
+            date.setHours(date.getHours() + 1);
+            return date.toISOString().slice(0, 16);
         },
     },
     updated_date: {
         type: DataTypes.DATE,
         allowNull: true,
-        // Formatea la fecha para el input de tipo datetime-local
         get() {
-            const rawValue = this.getDataValue("create_time");
+            const rawValue = this.getDataValue("updated_date");
             if (!rawValue) return null;
 
-            // Formatea la fecha en "YYYY-MM-DDTHH:MM"
-            const fecha = new Date(rawValue);
-            return fecha.toISOString().slice(0, 16);
+            const date = new Date(rawValue);
+            date.setHours(date.getHours() + 1);
+            return date.toISOString().slice(0, 16);
         },
     },
     active: {

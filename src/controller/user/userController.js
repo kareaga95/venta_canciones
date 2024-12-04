@@ -3,22 +3,36 @@ import artistModel from "../../model/artistModel.js";
 import songModel from "../../model/songModel.js";
 import error from "../../hellpers/errors.js";
 import { hashPassword } from "../../config/bcrypt.js";
+import artistController from "../../controller/artist/artistController.js"
+import songController from "../../controller/song/songController.js";
 
 async function getAllUsers() {
     const users = await userModel.findAll();
+    if (!users) {
+        throw new error.NO_USERS_FOUND();
+    }
     return users;
 }
 async function getUserById(id) {
     const user = await userModel.findByPk(id);
+    if (!user) {
+        throw new error.USER_NOT_FOUND();
+    }
     return user;
 }
 async function getUserByEmail(email) {
     const user = await userModel.findOne({ where: { email } });
+    if (!user) {
+        throw new error.USER_NOT_FOUND();
+    }
     return user;
 }
 
 async function getUserByUsername(username) {
     const user = await userModel.findOne({ where: { username } });
+    if (!user) {
+        throw new error.USER_NOT_FOUND();
+    }
     return user;
 }
 
@@ -33,19 +47,18 @@ async function createUser(username, email, password) {
     return newUser;
 }
 
-async function updateUser(id, username, email, password, rol) {
+async function updateUser(id, username, email, password) {
     const user = await userModel.findByPk(id);
-
-    if (rol === "admin") {
-        const existingAdmin = await userModel.findOne({ where: { rol: "admin" } });
-        if (existingAdmin && existingAdmin.id !== id) {
-            throw new Error("Solo puede haber un usuario con rol 'admin'");
-        }
+    const existingUserName = await userModel.findByName(username);
+    if (existingUserName) {
+        throw new error.USERNAME_ALREADY_EXISTS();
     }
-
+    const existingemail = await userModel.findByEmail(email);
+    if (existingemail) {
+        throw new error.EMAIL_ALREADY_EXISTS();
+    }
     user.username = username;
     user.email = email;
-    user.rol = rol;
     if (password) {
         user.password = await hashPassword(password);
     }
@@ -61,10 +74,10 @@ async function desactivateUser(id) {
     if (isArtist) {
         await songModel.update({ visible: 0 }, { where: { artist_id: artistIds } });
     }
-        userToRemove.active = 0;
-        userToRemove.save();
-        return userToRemove;
-    
+    userToRemove.active = 0;
+    userToRemove.save();
+    return userToRemove;
+
 }
 
 async function activateUser(id) {
@@ -79,6 +92,32 @@ async function activateUser(id) {
     return userToRemove;
 }
 
+async function updateUserStatus(id, active) {
+    const user = await userModel.findByPk(id);
+    const isArtist = await artistController.getArtistByUserId(id);
+    const artistsSongs = await songController.getSongsByArtistId(isArtist.id);
+    console.log("TU RAZA: " + id);
+    if (artistsSongs) {
+        for (const song of artistsSongs) {
+            song.visible = active;
+            await song.save();
+        }
+    }
+
+    if (isArtist) {
+        isArtist.active = active;
+        await isArtist.save();
+    }
+
+    if (!user) {
+        throw new error.USER_NOT_FOUND();
+    }
+    user.active = active;
+    user.updated_date = new Date();
+    await user.save();
+    return user;
+}
+
 export const functions = {
     getAllUsers,
     getUserById,
@@ -87,6 +126,8 @@ export const functions = {
     createUser,
     updateUser,
     desactivateUser,
-    activateUser
+    activateUser,
+    updateUserStatus
+
 };
 export default functions;

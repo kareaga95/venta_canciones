@@ -1,102 +1,95 @@
 import jwt from "../config/jwt.js";
 import artistController from "../controller/artist/artistController.js";
 import songController from "../controller/song/songController.js";
-async function isAuthenticated(req,res,next){
+async function isAuthenticated(req, res, next) {
+    console.log("ESTÁ ENTRANDO");
+    try {
+        const authorization = req.headers.authorization;
+        if (!authorization) {
+            return res.status(401).json({ error: "JWT token needed" });
+        }
+
+        const token = authorization.replace("Bearer ", "");
+        const verified = jwt.verify(token);
+
+        if (verified.error) {
+            return res.status(401).json({ error: "JWT token is not correct" });
+        }
+
+        req.userId = verified.id;
+        req.rol = verified.rol;
+
+        const artist = await artistController.getArtistByUserId(req.userId);
+        if (artist) {
+            req.artistId = artist.id;
+        }
+
+        next();
+    } catch (err) {
+        console.error("Error in isAuthenticated middleware:", err);
+        res.status(401).json({ error: "Authentication failed" });
+    }
+}
+
+async function songBelongsToUser(req, res, next) {
+    try {
+        const songId = req.params.id;
+        const userId = req.userId;
+
+        const artist = await artistController.getArtistByUserId(userId);
+        if (!artist) {
+            return res.status(403).json({ error: "You need to be an artist to perform this action" });
+        }
+
+        const song = await songController.getSongById(songId);
+        if (!song) {
+            return res.status(404).json({ error: "Song not found" });
+        }
+
+        if (song.artist_id !== artist.id) {
+            return res.status(403).json({ error: "You don't have permissions to access this song" });
+        }
+
+        req.artistId = artist.id;
+        next();
+    } catch (err) {
+        console.error("Error in songBelongsToUser middleware:", err);
+        res.status(err.status || 500).json({ error: err.message || "Internal server error" });
+    }
+}
+
+async function isAdmin(req, res, next) {
     const authorization = req.headers.authorization;
-    if(!authorization){
-        return res.status(401).json({error:"jwt token needed"});
+    if (!authorization) {
+        return res.status(401).json({ error: "jwt token needed" });
     }
-    const token = authorization.replace("Bearer ","");
+    const token = authorization.replace("Bearer ", "");
     const verified = jwt.verify(token);
-    const isArtist = await artistController.getArtistByUserId(verified.id);
-    if(isArtist){
-        req.artistId = isArtist.id;
-        console.log("Es artista", req.artistId);
+    if (verified.error) {
+        return res.status(401).json({ error: "jwt token not correct" });
     }
-    req.userId = verified.id;
-    req.rol = verified.rol;
-    
-    if(verified.error){
-        return res.status(401).json({error:"jwt token not correct"});
+    if (!verified.rol || verified.rol !== "admin") {
+        return res.status(403).json({ error: "not allowed" });
     }
     next();
 }
 
-async function songBelongsToUser(req,res,next){
+async function isAdminOrSelfUser(req, res, next) {
     const authorization = req.headers.authorization;
-    if(!authorization){
-        return res.status(401).json({error:"jwt token needed"});
+    if (!authorization) {
+        return res.status(401).json({ error: "jwt token needed" });
     }
-    const token = authorization.replace("Bearer ","");
+    const token = authorization.replace("Bearer ", "");
     const verified = jwt.verify(token);
-    req.userId = verified.id;
-    const artistId = await artistController.getArtistByUserId(verified.id).then((artist) => artist.id);
-    const songId = await songController.getSongById(req.params.id);
-    if(songId.artist_id != artistId){
-        return res.status(403).json({error:"No tienes permisos para esta operacion"});
-    }
-
-    if(verified.error){
-        return res.status(401).json({error:"jwt token not correct"});
-    }
-    next();
-}
-
-async function isAdmin(req,res,next){
-    const authorization = req.headers.authorization;
-    if(!authorization){
-        return res.status(401).json({error:"jwt token needed"});
-    }
-    const token = authorization.replace("Bearer ","");
-    const verified = jwt.verify(token);
-    if(verified.error){
-        return res.status(401).json({error:"jwt token not correct"});
-    }
-    if(!verified.rol || verified.rol !== "admin"){
-        return res.status(403).json({error:"not allowed"});
-    }
-    next();
-}
-
-async function isAdminOrSelfUser(req,res,next){
-    const authorization = req.headers.authorization;
-    if(!authorization){
-        return res.status(401).json({error:"jwt token needed"});
-    }
-    const token = authorization.replace("Bearer ","");
-    const verified = jwt.verify(token);
-    if(verified.error){
-        return res.status(401).json({error:"jwt token not correct"});
+    if (verified.error) {
+        return res.status(401).json({ error: "jwt token not correct" });
     }
     const id = parseInt(req.params.id);
-    if((!verified.role || verified.role !== "admin")&& id!=verified.user_id){
-        return res.status(403).json({error:"not allowed"});
+    if ((!verified.role || verified.role !== "admin") && id != verified.user_id) {
+        return res.status(403).json({ error: "not allowed" });
     }
 
     next();
 }
 
-// async function isArtist(req, res, next) {
-//     const authorization = req.headers.authorization;
-//     if (!authorization) {
-//         return res.status(401).json({ error: "jwt token needed" });
-//     }
-
-//     const token = authorization.replace("Bearer ", "");
-//     try {
-//         const verified = jwt.verify(token, process.env.JWT_SECRET); // Asegúrate de usar el secreto correcto
-        
-//         // Verificar si el usuario es un artista
-//         const isArtist = await artistController.getArtistByUserId(verified.id) !== null;
-
-//         if (!isArtist) {
-//             return res.status(403).json({ error: "not allowed" });
-//         }
-
-//         next(); // Llamar al siguiente middleware o controlador
-//     } catch (error) {
-//         console.error("JWT verification error:", error);
-//         return res.status(401).json({ error: "jwt token not correct" });
-//     }
-// }
 export { isAuthenticated, isAdmin, isAdminOrSelfUser, songBelongsToUser };

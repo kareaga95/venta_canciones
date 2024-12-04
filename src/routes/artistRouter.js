@@ -10,10 +10,8 @@ router.get("/:id", isAuthenticated, artistApiController.getArtistByUserId);
 
 router.post("/new", isAuthenticated, artistApiController.createArtist);
 
-router.post("/update", isAuthenticated, artistApiController.updateArtist);
+router.put("/update", isAuthenticated, artistApiController.updateArtist);
 
-router.post("/desactivate", isAuthenticated, artistApiController.desactivateArtist);
-
-router.post("/activate", isAuthenticated, artistApiController.activateArtist);
+router.patch("/status", isAuthenticated, artistApiController.updateArtistStatus);
 
 export default router;

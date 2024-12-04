@@ -10,7 +10,13 @@ async function getAllArtists(req, res) {
         const artists = await artistController.getAllArtists();
         res.status(200).json(artists);
     } catch (error) {
-        handleError(res, error);
+        console.error(error);
+        if (error.status) {
+            res.status(error.status);
+        } else {
+            res.status(500);
+        }
+        res.json({ error: error.message });
     }
 }
 
@@ -30,24 +36,17 @@ async function createArtist(req, res) {
     try {
         const userId = req.userId;
         const { name } = req.body;
-        console.log("NAME " + name);
-        const existingArtist = await artistController.getArtistByUserId(userId);
-        if (existingArtist) {
-            if (existingArtist.name === name || existingArtist.user_id === userId) {
-                res.status(500).json({ error: "El artista ya existe." });
-            }
-        }
-
-        if (!userId || !name) {
-            return res.status(400).json({ error: "userId y name son obligatorios" });
-        }
 
         const newArtist = await artistController.createArtist(userId, name);
         res.status(201).json(newArtist);
     } catch (error) {
-        console.error("Error en createArtist:", error);
-
-        res.status(500).json({ error: "Error interno al crear el artista" });
+        console.error(error);
+        if (error.status) {
+            res.status(error.status);
+        } else {
+            res.status(500);
+        }
+        res.json({ error: error.message });
     }
 }
 
@@ -55,34 +54,32 @@ async function createArtist(req, res) {
 async function updateArtist(req, res) {
     try {
         const artistId = req.artistId;
-        const userId = req.userId;
         const { name } = req.body;
-        const updatedUser = await userController.updateUser(artistId, name, userId);
-        res.status(200).json(updatedUser);
+        const updateArtist = await artistController.updateArtist(artistId, name);
+        res.status(200).json(updateArtist);
     } catch (error) {
-        handleError(res, error);
+        console.error(error);
+        if (error.status) {
+            res.status(error.status);
+        } else {
+            res.status(500);
+        }
+        res.json({ error: error.message });
     }
 }
 
-async function desactivateArtist(req, res) {
+async function updateArtistStatus(req, res) {
     try {
-        const desactivateArtist = await artistController.desactivateArtist(req.artistId);
-        res.status(200).json(desactivateArtist);
+        const { active } = req.body;
+        const updateArtist = await artistController.updateArtistStatus(req.artistId, active);
+        res.status(200).json(updateArtist);
     } catch (error) {
-        handleError(res, error);
+        console.error(error);
+        res.status(500).json({ error: "An error occurred while updating the artist status." });
     }
 }
 
-async function activateArtist(req, res) {
-    try {
-        const activateArtist = await artistController.activateArtist(req.artistId);
-        res.status(200).json(activateArtist);
 
-    } catch (error) {
-        handleError(res, error);
-    }
-}
-
-export const functions = { getAllArtists, getArtistByUserId, createArtist, updateArtist, desactivateArtist, activateArtist };
+export const functions = { getAllArtists, getArtistByUserId, createArtist, updateArtist, updateArtistStatus};
 
 export default functions;

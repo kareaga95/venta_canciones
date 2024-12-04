@@ -7,14 +7,16 @@ const router = Router();
 
 router.get("/", songApiController.getAllSongs);
 
-router.get("/artist", isAuthenticated, songApiController.getSongsByArtistId);
+router.get("/artist", songBelongsToUser, songApiController.getSongsByArtistId);
+
+router.get("/:id/download", isAuthenticated, songApiController.downloadSong);
 
 router.post("/new", isAuthenticated, multerMiddleware, songApiController.createSong);
 
-router.post("/:id/update", songBelongsToUser, multerMiddleware, songApiController.updateSong);
+router.put("/:id/update", isAuthenticated, songBelongsToUser, songApiController.updateSong);
 
-router.post("/:id/delete", isAuthenticated, songApiController.deleteSong);
+router.delete("/:id/delete", isAuthenticated, songBelongsToUser, songApiController.deleteSong);
 
-router.get("/:id", multerMiddleware, songApiController.getSongById);
+router.get("/:id", songApiController.getSongById);
 
 export default router;
