@@ -70,7 +70,6 @@ async function getAllSongs(filters) {
  * console.log(songs);
  */
 async function getSongsByArtistId(artistId) {
-    console.log("ID ARTISTA: ", artistId);
     if (!artistId) {
         throw new error.USER_NOT_FOUND();
     }

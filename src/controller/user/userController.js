@@ -173,7 +173,6 @@ async function updateUserStatus(id, active) {
     const user = await userModel.findByPk(id);
     const isArtist = await artistController.getArtistByUserId(id);
     const artistsSongs = await songController.getSongsByArtistId(isArtist.id);
-    console.log("TU RAZA: " + id);
     if (artistsSongs) {
         for (const song of artistsSongs) {
             song.visible = active;

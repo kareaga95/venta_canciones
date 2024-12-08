@@ -3,7 +3,6 @@ import jwt from "../../config/jwt.js";
 
 async function register(req, res) {
     try {
-        console.log("REGISTRO")
         const { username, email, password, confirmPassword } = req.body;
         const result = await authController.register(username, email, password, confirmPassword);
         return res.status(201).json({ message: "User registered successfully", user: result }); // 201 Created

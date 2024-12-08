@@ -1,16 +1,19 @@
 # 🪄 Changelog
 
-## [1.0.0] - 2024-11-21
+
+## [1.0.0] - 2024-12-07
 
 ### Añadidos
 
--   Dockerizacion del backend y la base de datos de mysql
+-   Creacion de test para los metodos de userController.
+
+-   Documentación de los controllers.
 
 ### Arreglos
 
--   Arreglados los bugs restantes para la aplicacion final
+-   Arreglados los bugs restantes para la aplicacion final.
 
-## [0.0.9] - 2024-11-20
+## [0.0.9] - 2024-12-06
 
 ### Añadidos
 
@@ -18,7 +21,7 @@
 
 ---
 
-## [0.0.8] - 2024-11-19
+## [0.0.8] - 2024-12-05
 
 ### Añadidos
 
@@ -26,7 +29,7 @@
 
 ---
 
-## [0.0.7] - 2024-11-18
+## [0.0.7] - 2024-12-04
 
 ### Añadidos
 
@@ -34,7 +37,7 @@
 
 ---
 
-## [0.0.6] - 2024-11-17
+## [0.0.6] - 2024-12-03
 
 ### Añadidos
 
@@ -42,7 +45,7 @@
 
 ---
 
-## [0.0.5] - 2024-11-17
+## [0.0.5] - 2024-12-02
 
 ### Añadidos
 
@@ -53,7 +56,7 @@
 
 ---
 
-## [0.0.4] - 2024-11-16
+## [0.0.4] - 2024-12-01
 
 ### Añadidos
 
@@ -61,7 +64,7 @@
 
 ---
 
-## [0.0.3] - 2024-11-16
+## [0.0.3] - 2024-11-29
 
 ### Añadidos
 
@@ -70,7 +73,7 @@
 ---
 
 
-## [0.0.2] - 2024-11-14
+## [0.0.2] - 2024-11-28
 
 ### Añadidos
 
@@ -78,7 +81,7 @@
 
 ---
 
-## [0.0.1] - 2024-11-11
+## [0.0.1] - 2024-11-26
 
 ### Añadidos
 

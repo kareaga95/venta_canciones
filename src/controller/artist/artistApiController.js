@@ -23,9 +23,7 @@ async function getAllArtists(req, res) {
 async function getArtistByUserId(req, res) {
     const userId = req.userId;
     try {
-        console.log("LLEGA ARTISTA " + artist);
         const artist = await artistController.getArtistByUserId(userId);
-        console.log("LLEGA ARTISTA1 " + artist);
         res.status(200).json(artist);
     } catch (error) {
         res.status(500).json({ error: "Error al obtener el artista." });
