@@ -11,6 +11,7 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
 5. [Endpoints](#-endpoints)
 6. [Colaboradores](#-colaboradores)
 
+
 ## 🌟 Características
 
 -   Registro y autenticación de usuarios.
@@ -24,8 +25,8 @@ PocketLog es una aplicación web de gestión financiera personal que permite a l
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![Multer](https://img.shields.io/badge/Multer-FF5733?style=for-the-badge&logo=node.js&logoColor=white)
-
-
+![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+![JSDoc](https://img.shields.io/badge/JSDoc-FFA500?style=for-the-badge&logo=javascript&logoColor=white)
 
 ## ⚙️ Instalación
 
