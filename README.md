@@ -1,6 +1,6 @@
-# 💸 PocketLog
+# 💿 PocketLog
 
-PocketLog es una aplicación web de gestión financiera personal que permite a los usuarios llevar un control preciso de sus ingresos y gastos. La plataforma proporciona herramientas intuitivas para registrar transacciones, organizar las finanzas por categorías y generar reportes visuales, ayudando a los usuarios a administrar su dinero de manera eficiente y planificar mejor su futuro financiero.
+Share Your Song es una aplicación web de compra venta de canciones que permite a los usuarios comprar canciones de otros usuarios y subir sus propias canciones para venderlas. La plataforma proporciona herramientas intuitivas para subir canciones y comprar.
 
 ## 📋 Tabla de Contenidos
 
