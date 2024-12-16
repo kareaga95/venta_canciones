@@ -1,4 +1,4 @@
-# 💿 PocketLog
+# 💿 Share Your Song
 
 Share Your Song es una aplicación web de compra venta de canciones que permite a los usuarios comprar canciones de otros usuarios y subir sus propias canciones para venderlas. La plataforma proporciona herramientas intuitivas para subir canciones y comprar.
 
