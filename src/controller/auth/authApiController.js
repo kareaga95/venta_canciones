@@ -23,7 +23,7 @@ async function login(req, res) {
         const user = await authController.login(email, password);
         const token = jwt.sign({ id: user.dataValues.id, rol: user.dataValues.rol });
        
-        return res.status(200).json({ message: "Login successful", token }); // 200 OK
+        return res.status(200).json({ message: "Login successful", token, user }); // 200 OK
     } catch (error) {
         console.error("LOGIN API ERROR: ", error);
         if (error.status) {

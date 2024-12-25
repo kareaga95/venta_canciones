@@ -20,6 +20,21 @@ async function getAllArtists(req, res) {
     }
 }
 
+async function getArtistById(req, res) {
+    try {
+        const { id } = req.params; // Obtener el ID de los parámetros de la URL
+        const artist = await artistController.getArtistById(id); // Llamar a la función que busca por ID
+        if (!artist) {
+            return res.status(404).json({ error: "Artista no encontrado" });
+        }
+        res.status(200).json(artist);
+    } catch (error) {
+        console.error("Error obteniendo el artista:", error);
+        res.status(500).json({ error: "Error al obtener el artista." });
+    }
+}
+
+
 async function getArtistByUserId(req, res) {
     const userId = req.userId;
     try {
@@ -78,6 +93,6 @@ async function updateArtistStatus(req, res) {
 }
 
 
-export const functions = { getAllArtists, getArtistByUserId, createArtist, updateArtist, updateArtistStatus};
+export const functions = { getAllArtists, getArtistByUserId, createArtist, updateArtist, updateArtistStatus, getArtistById };
 
 export default functions;

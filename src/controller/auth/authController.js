@@ -11,7 +11,7 @@ import User from "../../model/userModel.js";
  * @param {string} username - El nombre de usuario.
  * @param {string} email - La dirección de correo electrónico del usuario.
  * @param {string} password - La contraseña del usuario.
- * @param {string} passwordConfirm - Confirmación de la contraseña.
+ * @param {string} confirmPassword - Confirmación de la contraseña.
  * @throws {EMAIL_ALREADY_EXISTS} Si el correo electrónico ya está registrado.
  * @throws {USERNAME_ALREADY_EXISTS} Si el nombre de usuario ya existe.
  * @throws {PASSWORD_NOT_MATCH} Si las contraseñas no coinciden.
@@ -25,7 +25,7 @@ import User from "../../model/userModel.js";
  *   console.error("Error al registrar usuario:", error.message);
  * }
  */
-async function register(username, email, password, passwordConfirm) {
+async function register(username, email, password, confirmPassword) {
         const existingEmail = await User.findOne({where: {email: email}});
         const existingUsername = await User.findOne({where: {username: username}});
 
@@ -37,7 +37,7 @@ async function register(username, email, password, passwordConfirm) {
             throw new error.USERNAME_ALREADY_EXISTS();
         }
 
-        if (password !== passwordConfirm) {
+        if (password !== confirmPassword) {
             throw new error.PASSWORD_NOT_MATCH();
         }
 

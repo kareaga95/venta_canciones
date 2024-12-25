@@ -44,6 +44,22 @@ async function getArtistByUserId(userId) {
 }
 
 /**
+ * Obtiene un artista específico a partir de su ID.
+ *
+ * @async
+ * @function getArtistById
+ * @param {string|number} id - Identificador único del artista.
+ * @returns {Promise<Object|null>} Devuelve el artista encontrado o null si no existe.
+ *
+ * @example
+ * const artist = await getArtistById(1);
+ * console.log("Artista encontrado:", artist);
+ */
+async function getArtistById(id) {
+    return artistModel.findByPk(id);
+}
+
+/**
  * Crea un nuevo artista con un nombre y un ID de usuario.
  *
  * @async
@@ -139,6 +155,6 @@ async function updateArtistStatus(id, active) {
     return artist;
 }
 
-export const functions = { getAllArtists,getArtistByUserId, createArtist, updateArtist, updateArtistStatus};
+export const functions = { getAllArtists,getArtistByUserId, createArtist, updateArtist, updateArtistStatus, getArtistById };
 
 export default functions;

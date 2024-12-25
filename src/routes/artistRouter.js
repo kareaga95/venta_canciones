@@ -6,6 +6,8 @@ const router = Router();
 
 router.get("/", isAdmin, artistApiController.getAllArtists);
 
+router.get("/artist/:id", artistApiController.getArtistById);
+
 router.get("/:id", isAuthenticated, artistApiController.getArtistByUserId);
 
 router.post("/new", isAuthenticated, artistApiController.createArtist);
