@@ -24,7 +24,7 @@ const User = sequelize.define("user", {
         type: DataTypes.STRING(100),
         allowNull: false,
     },
-    
+
     rol: {
         type: DataTypes.ENUM("client", "admin"),
         allowNull: true,
@@ -58,6 +58,16 @@ const User = sequelize.define("user", {
             const date = new Date(rawValue);
             date.setHours(date.getHours() + 1); // Ajusta la hora a CST (UTC-5)
             return date.toISOString().slice(0, 16);
+        },
+        account_number: {
+            type: DataTypes.STRING(20),
+            allowNull: false,
+            unique: false,
+        },
+        bank_name: {
+            type: DataTypes.STRING(255),
+            allowNull: false,
+            unique: false,
         },
     }
 });

@@ -74,7 +74,7 @@ Share Your Song es una aplicación web de compra venta de canciones que permite 
 2. **Compra de Canciones**:
     - Accede a la ventana las canciones donde puedes:
         - Ver todas todas las canciones disponibles de la tienda.
-        - Filtrar titulo, genero, artista, precio.
+        - Filtrar titulo.
     - Añade una nueva compra pulsando en boton "Comprar" de cada canción:
 
 3. **Venta de Canciónes:**
@@ -84,10 +84,8 @@ Share Your Song es una aplicación web de compra venta de canciones que permite 
         -Genero
         -Precio
         -Fecha de estreno
-4. Ventana de Administración (Solo Administradores):
-    - Accede a una vista exclusiva para administradores donde podrás:
-        - Visualizar todos los usuarios (y artistas) registrados en la base de datos.
-        - Gestionar la desactivacion y activacion de las cuentas de los usuarios.
+        -Portada
+        -Archivo de audio
 
 ## 📌 Endpoints
 

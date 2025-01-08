@@ -28,18 +28,29 @@ async function getAllSongs(filters) {
     const whereClause = {};
     const artistWhereClause = {};
 
+    // Filtro para canciones visibles
     if (visible !== undefined) {
         whereClause.visible = visible === "true";
     }
+
+    // Filtro para buscar en el título de las canciones
     if (search) {
         whereClause.title = { [Op.like]: `%${search}%` };
     }
+
+    // Filtro por género
     if (genre) {
         whereClause.genre = genre;
     }
+
+    // Filtro por nombre del artista
     if (artistName) {
         artistWhereClause.name = { [Op.like]: `%${artistName}%` };
     }
+
+    // Filtro para mostrar solo canciones con fecha igual o anterior a hoy
+    const today = new Date(); // Obtiene la fecha actual
+    whereClause.release_date = { [Op.lte]: today };
 
     return await Song.findAll({
         where: whereClause,
@@ -52,8 +63,11 @@ async function getAllSongs(filters) {
             },
         ],
         attributes: ["id", "title", "genre", "price", "audio_file_path", "cover_image", "visible", "release_date"],
+        order: [["release_date", "DESC"]], // Ordenar por release_date de más nuevas a más viejas
     });
 }
+
+
 
 /**
  * Obtiene todas las canciones asociadas a un artista específico.
@@ -214,7 +228,11 @@ async function deleteSong(id) {
  * console.log(`Descargar archivo: ${fileName} en ${filePath}`);
  */
 async function downloadSong(userId, songId) {
+    console.log("SSSSSSSSSSSSSSSSSOOOOOOOONNNNNNNNGGGGGGGGGG" + songId);
+    songId = 5;
     const song = await Song.findByPk(songId);
+    console.log("User: " + userId + " Song: " + songId);
+    
     const userPurchasedSong = await Purchase.findOne({where: {user_id: userId, song_id: songId}})
     if(!userPurchasedSong){
     throw new error.NO_USERS_SONG;

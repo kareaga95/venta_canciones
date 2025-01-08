@@ -3,8 +3,8 @@ import jwt from "../../config/jwt.js";
 
 async function register(req, res) {
     try {
-        const { username, email, password, confirmPassword } = req.body;
-        const result = await authController.register(username, email, password, confirmPassword);
+        const { username, email, password, confirmPassword, account_number, bank_name} = req.body;
+        const result = await authController.register(username, email, password, confirmPassword, account_number, bank_name);
         return res.status(201).json({ message: "User registered successfully", user: result }); // 201 Created
     } catch (error) {
         console.error("REGISTER API ERROR: ", error);

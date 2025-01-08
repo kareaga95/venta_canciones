@@ -25,7 +25,7 @@ import User from "../../model/userModel.js";
  *   console.error("Error al registrar usuario:", error.message);
  * }
  */
-async function register(username, email, password, confirmPassword) {
+async function register(username, email, password, confirmPassword, account_number, bank_name) {
         const existingEmail = await User.findOne({where: {email: email}});
         const existingUsername = await User.findOne({where: {username: username}});
 
@@ -41,7 +41,7 @@ async function register(username, email, password, confirmPassword) {
             throw new error.PASSWORD_NOT_MATCH();
         }
 
-        const newUser = await userController.createUser(username, email, password);
+        const newUser = await userController.createUser(username, email, password, account_number, bank_name);
         return newUser;
 }
 

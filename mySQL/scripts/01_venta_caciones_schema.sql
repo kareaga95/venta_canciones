@@ -17,22 +17,23 @@ USE `venta_canciones` ;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `venta_canciones`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `venta_canciones`.`user` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(70) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(100) NOT NULL,
-  `rol` ENUM('user', 'admin') NULL DEFAULT 'user',
-  `active` TINYINT DEFAULT 1,
-  `created_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  -- `emailToken` VARCHAR(255) DEFAULT NULL AFTER `password`,
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(70) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `rol` enum('user','admin') DEFAULT 'user',
+  `active` tinyint DEFAULT '1',
+  `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `account_number` varchar(20) DEFAULT NULL, -- Nueva columna para el número de cuenta bancaria
+  `bank_name` varchar(255) DEFAULT NULL, -- Nueva columna para el nombre del banco
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE,
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+
 
 
 -- -----------------------------------------------------

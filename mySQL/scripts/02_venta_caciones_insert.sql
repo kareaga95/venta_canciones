@@ -34,11 +34,11 @@ VALUES
 -- ================================================
 INSERT INTO `venta_canciones`.`song` (`artist_id`, `title`, `genre`, `price`, `audio_file_path`, `cover_image`, `visible`, `sales_amount`, `release_date`, `file_size`, `file_type`, `created_date`, `updated_date`)
 VALUES
-(1, 'Harmony of Dreams', 'Jazz', 3.99, '/songs/harmony_of_dreams.mp3', '/covers/harmony.jpg', 1, 2, '2024-01-01', 5120, 'audio/mpeg', NOW(), NOW()), -- Canción Jazz
-(1, 'Soulful Nights', 'R&B', 2.99, '/songs/soulful_nights.mp3', '/covers/soulful_nights.jpg', 1, 3, '2024-02-01', 4890, 'audio/mpeg', NOW(), NOW()), -- Canción R&B
-(2, 'Rock the World', 'Rock', 4.49, '/songs/rock_the_world.mp3', '/covers/rock_the_world.jpg', 1, 0, '2024-03-01', 6200, 'audio/mpeg', NOW(), NOW()), -- Canción Rock
-(2, 'Party Hard', 'Electronic', 3.49, '/songs/party_hard.mp3', '/covers/party_hard.jpg', 0, 0, '2024-04-01', 5300, 'audio/mpeg', NOW(), NOW()); -- Canción Electrónica (no visible)
-(1, 'Dreams in Harmony', 'Jazz', 4.49, '/songs/dreams_in_harmony.mp3', '/covers/dreams_in_harmony.jpg', 1, 10, '2024-05-20', 5200, 'audio/mpeg', NOW(), NOW()),
+(1, 'Harmony of Dreams', 'Jazz', 3.99, '/songs/harmony_of_dreams.mp3', 'uploads/images/Bass In Your Face.jpg', 1, 2, '2024-01-01', 5120, 'audio/mpeg', NOW(), NOW()), -- Canción Jazz
+(1, 'Soulful Nights', 'R&B', 2.99, '/songs/soulful_nights.mp3', 'uploads/images/Broken dreams (1).jpg', 1, 3, '2024-02-01', 4890, 'audio/mpeg', NOW(), NOW()), -- Canción R&B
+(2, 'Rock the World', 'Rock', 4.49, '/songs/rock_the_world.mp3', 'uploads/images/beer.jpg', 1, 0, '2024-03-01', 6200, 'audio/mpeg', NOW(), NOW()), -- Canción Rock
+(2, 'Party Hard', 'Electronic', 3.49, '/songs/party_hard.mp3', 'uploads/images/castigo portada.jpg', 0, 0, '2024-04-01', 5300, 'audio/mpeg', NOW(), NOW()), -- Canción Electrónica (no visible)
+(1, 'Dreams in Harmony', 'Electronic', 3.49, '/songs/party_hard.mp3', '/covers/party_hard.jpg', 1, 0, '2024-04-01', 5300, 'audio/mpeg', NOW(), NOW());
 (1, 'Jazz Delight', 'Jazz', 3.99, '/songs/jazz_delight.mp3', '/covers/jazz_delight.jpg', 1, 15, '2024-06-10', 4900, 'audio/mpeg', NOW(), NOW()),
 (2, 'Electronic Pulse', 'Electronic', 5.49, '/songs/electronic_pulse.mp3', '/covers/electronic_pulse.jpg', 1, 20, '2024-06-15', 5500, 'audio/mpeg', NOW(), NOW()),
 (2, 'Night Party', 'Electronic', 4.49, '/songs/night_party.mp3', '/covers/night_party.jpg', 1, 12, '2024-07-01', 5400, 'audio/mpeg', NOW(), NOW()),
