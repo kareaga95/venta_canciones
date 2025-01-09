@@ -1,22 +1,22 @@
-import { Router } from "express";
-import songApiController from "../controller/song/songApiController.js";
-import multerMiddleware from "../middlewares/multerMiddleware.js";
-import { isAuthenticated, songBelongsToUser } from "../middlewares/authMiddleware.js";
+    import { Router } from "express";
+    import songApiController from "../controller/song/songApiController.js";
+    import multerMiddleware from "../middlewares/multerMiddleware.js";
+    import { isAuthenticated, songBelongsToUser } from "../middlewares/authMiddleware.js";
 
-const router = Router();
+    const router = Router();
 
-router.get("/", songApiController.getAllSongs);
+    router.get("/", songApiController.getAllSongs);
 
-router.get("/artist", songBelongsToUser, songApiController.getSongsByArtistId);
+    router.get("/artist/:artistId", isAuthenticated, songApiController.getSongsByArtistId);
 
-router.get("/:id/download", isAuthenticated, songApiController.downloadSong);
+    router.get("/:id/download", isAuthenticated, songApiController.downloadSong);
 
-router.post("/new", isAuthenticated, multerMiddleware, songApiController.createSong);
+    router.post("/new", isAuthenticated, multerMiddleware, songApiController.createSong);
 
-router.put("/:id/update", isAuthenticated, songBelongsToUser, songApiController.updateSong);
+    router.put("/:id/update", isAuthenticated, songBelongsToUser, songApiController.updateSong);
 
-router.delete("/:id/delete", isAuthenticated, songBelongsToUser, songApiController.deleteSong);
+    router.delete("/:id/delete", isAuthenticated, songBelongsToUser, songApiController.deleteSong);
 
-router.get("/:id", songApiController.getSongById);
+    router.get("/:id", songApiController.getSongById);
 
-export default router;
+    export default router;

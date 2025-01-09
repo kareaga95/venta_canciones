@@ -14,7 +14,8 @@ async function getAllSongs(req, res) {
 
 async function getSongsByArtistId(req, res) {
     try {
-        const songsByArtist = await songController.getSongsByArtistId(req.artistId);
+        const artistId = parseInt(req.params.artistId); // Obtener `artistId` de los parámetros
+        const songsByArtist = await songController.getSongsByArtistId(artistId);
         res.status(200).json(songsByArtist.map((song) => song.toJSON()));
     } catch (err) {
         console.error("Error en getSongsByArtistId:", err);
@@ -78,7 +79,7 @@ async function deleteSong(req, res) {
         if (!deletedSong) {
             throw new errors.SONG_NOT_FOUND();
         }
-        res.status(204).send(); // 204 No Content
+        res.status(200).json({ message: "Canción eliminada con éxito" }); // Respuesta en JSON
     } catch (err) {
         console.error("Error en deleteSong:", err);
         res.status(err.status || 500).json({ error: err.message || "Error interno del servidor" });
