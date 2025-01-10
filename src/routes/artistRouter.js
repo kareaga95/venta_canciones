@@ -6,6 +6,8 @@ const router = Router();
 
 router.get("/", isAdmin, artistApiController.getAllArtists);
 
+router.patch("/:id/status", isAuthenticated, artistApiController.updateArtistStatus);
+
 router.get("/artist/:id", artistApiController.getArtistById);
 
 router.get("/:id", isAuthenticated, artistApiController.getArtistByUserId);
@@ -14,6 +16,6 @@ router.post("/new", isAuthenticated, artistApiController.createArtist);
 
 router.put("/update", isAuthenticated, artistApiController.updateArtist);
 
-router.patch("/status", isAuthenticated, artistApiController.updateArtistStatus);
+
 
 export default router;

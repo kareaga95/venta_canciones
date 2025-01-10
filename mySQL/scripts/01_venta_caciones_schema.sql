@@ -26,8 +26,6 @@ CREATE TABLE `user` (
   `active` tinyint DEFAULT '1',
   `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `account_number` varchar(20) DEFAULT NULL, -- Nueva columna para el número de cuenta bancaria
-  `bank_name` varchar(255) DEFAULT NULL, -- Nueva columna para el nombre del banco
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),

@@ -228,8 +228,6 @@ async function deleteSong(id) {
  * console.log(`Descargar archivo: ${fileName} en ${filePath}`);
  */
 async function downloadSong(userId, songId) {
-    console.log("SSSSSSSSSSSSSSSSSOOOOOOOONNNNNNNNGGGGGGGGGG" + songId);
-    songId = 5;
     const song = await Song.findByPk(songId);
     console.log("User: " + userId + " Song: " + songId);
     
