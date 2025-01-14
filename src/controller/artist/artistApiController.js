@@ -22,8 +22,8 @@ async function getAllArtists(req, res) {
 
 async function getArtistById(req, res) {
     try {
-        const { id } = req.params; // Obtener el ID de los parámetros de la URL
-        const artist = await artistController.getArtistById(id); // Llamar a la función que busca por ID
+        const { id } = req.params;
+        const artist = await artistController.getArtistById(id);
         if (!artist) {
             return res.status(404).json({ error: "Artista no encontrado" });
         }

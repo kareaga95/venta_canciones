@@ -1,8 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
-import Artist from "./artistModel.js"; // Importar modelo Artist
+import Artist from "./artistModel.js";
 
-// Definición del modelo Song
 const Song = sequelize.define(
     "song",
     {
@@ -49,7 +48,6 @@ const Song = sequelize.define(
                 const rawValue = this.getDataValue("release_date");
                 if (!rawValue) return null;
 
-                // Formatea la fecha en "YYYY-MM-DDTHH:MM"
                 const fecha = new Date(rawValue);
                 return fecha.toISOString().slice(0, 16);
             },
@@ -73,7 +71,6 @@ const Song = sequelize.define(
                 const rawValue = this.getDataValue("created_date");
                 if (!rawValue) return null;
 
-                // Formatea la fecha en "YYYY-MM-DDTHH:MM"
                 const fecha = new Date(rawValue);
                 return fecha.toISOString().slice(0, 16);
             },
@@ -86,15 +83,14 @@ const Song = sequelize.define(
                 const rawValue = this.getDataValue("updated_date");
                 if (!rawValue) return null;
 
-                // Formatea la fecha en "YYYY-MM-DDTHH:MM"
                 const fecha = new Date(rawValue);
                 return fecha.toISOString().slice(0, 16);
             },
         },
     },
     {
-        freezeTableName: true, // Evita pluralización automática
-        timestamps: false, // No añade automáticamente `createdAt` y `updatedAt`
+        freezeTableName: true,
+        timestamps: false, 
     }
 );
 

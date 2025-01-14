@@ -1,9 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
-import User from "./userModel.js"; // Importar modelo User
-import Song from "./songModel.js"; // Importar modelo Song
+import User from "./userModel.js";
+import Song from "./songModel.js";
 
-// Definición del modelo Purchase
 const Purchase = sequelize.define("purchase", {
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -28,7 +27,6 @@ const Purchase = sequelize.define("purchase", {
             const rawValue = this.getDataValue("purchase_date");
             if (!rawValue) return null;
 
-            // Formatea la fecha en "YYYY-MM-DDTHH:MM"
             const fecha = new Date(rawValue);
             return fecha.toISOString().slice(0, 16);
         },

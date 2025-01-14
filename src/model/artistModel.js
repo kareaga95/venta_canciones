@@ -2,7 +2,6 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
 import User from "./userModel.js"
 
-// Definición del modelo Artist
 const Artist = sequelize.define("artist", {
     id: {
         type: DataTypes.INTEGER.UNSIGNED,

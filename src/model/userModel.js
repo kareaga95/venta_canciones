@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelize.js";
 
-// Definición del modelo User
 const User = sequelize.define("user", {
     id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -37,26 +36,26 @@ const User = sequelize.define("user", {
     created_date: {
         type: DataTypes.DATE,
         allowNull: true,
-        // Formatea la fecha para el input de tipo datetime-local
+
         get() {
             const rawValue = this.getDataValue("created_date");
             if (!rawValue) return null;
 
             const date = new Date(rawValue);
-            date.setHours(date.getHours() + 1); // Ajusta la hora a CST (UTC-5)
+            date.setHours(date.getHours() + 1);
             return date.toISOString().slice(0, 16);
         },
     },
     updated_date: {
         type: DataTypes.DATE,
         allowNull: true,
-        // Formatea la fecha para el input de tipo datetime-local
+
         get() {
             const rawValue = this.getDataValue("updated_date");
             if (!rawValue) return null;
 
             const date = new Date(rawValue);
-            date.setHours(date.getHours() + 1); // Ajusta la hora a CST (UTC-5)
+            date.setHours(date.getHours() + 1);
             return date.toISOString().slice(0, 16);
         }
     }

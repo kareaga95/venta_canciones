@@ -15,9 +15,9 @@ export const createPaymentIntent = async (amount) => {
   }
 
   return await stripe.paymentIntents.create({
-    amount, // en centavos (ejemplo: 10€ = 1000)
+    amount,
     currency: "eur",
-    payment_method_types: ["card"], // Sólo permite tarjetas
+    payment_method_types: ["card"],
   });
 };
 

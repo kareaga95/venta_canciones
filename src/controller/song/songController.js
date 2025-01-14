@@ -28,28 +28,23 @@ async function getAllSongs(filters) {
     const whereClause = {};
     const artistWhereClause = {};
 
-    // Filtro para canciones visibles
     if (visible !== undefined) {
         whereClause.visible = visible === "true";
     }
 
-    // Filtro para buscar en el título de las canciones
     if (search) {
         whereClause.title = { [Op.like]: `%${search}%` };
     }
 
-    // Filtro por género
     if (genre) {
         whereClause.genre = genre;
     }
 
-    // Filtro por nombre del artista
     if (artistName) {
         artistWhereClause.name = { [Op.like]: `%${artistName}%` };
     }
 
-    // Filtro para mostrar solo canciones con fecha igual o anterior a hoy
-    const today = new Date(); // Obtiene la fecha actual
+    const today = new Date();
     whereClause.release_date = { [Op.lte]: today };
 
     return await Song.findAll({
@@ -63,7 +58,7 @@ async function getAllSongs(filters) {
             },
         ],
         attributes: ["id", "title", "genre", "price", "audio_file_path", "cover_image", "visible", "release_date"],
-        order: [["release_date", "DESC"]], // Ordenar por release_date de más nuevas a más viejas
+        order: [["release_date", "DESC"]],
     });
 }
 

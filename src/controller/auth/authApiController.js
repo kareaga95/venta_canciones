@@ -5,7 +5,7 @@ async function register(req, res) {
     try {
         const { username, email, password, confirmPassword} = req.body;
         const result = await authController.register(username, email, password, confirmPassword);
-        return res.status(201).json({ message: "User registered successfully", user: result }); // 201 Created
+        return res.status(201).json({ message: "User registered successfully", user: result });
     } catch (error) {
         console.error("REGISTER API ERROR: ", error);
 
@@ -23,7 +23,7 @@ async function login(req, res) {
         const user = await authController.login(email, password);
         const token = jwt.sign({ id: user.dataValues.id, rol: user.dataValues.rol });
        
-        return res.status(200).json({ message: "Login successful", token, user }); // 200 OK
+        return res.status(200).json({ message: "Login successful", token, user });
     } catch (error) {
         console.error("LOGIN API ERROR: ", error);
         if (error.status) {
